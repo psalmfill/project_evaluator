@@ -14,6 +14,16 @@ export class AppService {
     return 'Hello World!';
   }
 
+  getProjects() {
+    return this.prismaService.project.findMany();
+  }
+
+  getProject(id) {
+    return this.prismaService.project.findFirst({
+      where: { id },
+    });
+  }
+
   save(data: FormDTO) {
     return this.prismaService.project.create({
       data,

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Render,
   UploadedFile,
@@ -21,6 +22,25 @@ export class AppController {
   @Render('index')
   getHello(): string {
     return;
+  }
+
+  @Get('projects')
+  @Render('projects')
+  async getProjects() {
+    const projects = await this.appService.getProjects();
+    return {
+      projects: projects,
+    };
+  }
+
+  @Get('projects/:id')
+  @Render('project')
+  async getProject(@Param('id') id: string) {
+    const project = await this.appService.getProject(id);
+
+    return {
+      project: project,
+    };
   }
 
   @Post('/evaluate')
